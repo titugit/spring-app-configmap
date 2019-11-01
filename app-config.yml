@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spring-app-configmap
+data:
+  application.yml: |-
+    employee:
+      maxsalary: 45000
+      total: 40
+    emp:
+      name: Biswabhusans
+      address: 123 Main Street
+    ---
+    ########### Properties for local environment deployement ############
+    spring:
+      profiles: local
+    employee:
+      maxsalary: 7000
+      total: 220
+    emp:
+      name: Biswabhusan
+      address: 123 Main Street
+    ---
+    ########### Properties for default environment deployement ############
+    spring:
+      profiles: default
+    employee:
+      maxsalary: 700
+      total: 40
+    emp:
+      name: Harash
+      address: 465 Main Street
+    ---
+    ########### Properties for cloud environment deployement ############
+    spring:
+      profiles: cloud
+    employee:
+      maxsalary: 500
+      total: 45
+    emp:
+      name: Titu
+      address: 123 Main Street

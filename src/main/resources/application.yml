@@ -1,0 +1,11 @@
+logging:
+  level:
+    com.bbs.configmap: trace
+server:
+  port: 5959
+employee:
+  maxsalary: 48000
+  total: 60
+emp:
+  name: Biswabhusans
+  address: 123 Main Street

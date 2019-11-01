@@ -1,0 +1,58 @@
+management:
+  endpoints:
+    web:
+      base-path: /management
+      exposure:
+        include: ["configprops", "env", "metrics", "prometheus", "health","info", "threaddump"]
+
+  info:
+    git:
+      mode: full
+  metrics:
+    enabled: true
+    export:
+      prometheus:
+        enabled: true
+    web:
+      server:
+        auto-time-requests: false
+    distribution:
+      percentiles:
+        all: 0.7, 0.95
+  prometheus:
+    enabled: true
+  server:
+    port: 5959
+  endpoint:
+    restart:
+      enabled: true
+
+
+spring:
+  application:
+    name: spring-app-configmap
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+  output:
+    ansi:
+      enabled: ALWAYS
+  thymeleaf:
+    mode: HTML
+  devtools:
+    restart:
+      enabled: true
+    liverload:
+      enabled: false
+  cloud:
+    kubernetes:
+      config:
+        name: spring-app-configmap
+        namespace: default
+        sources:
+          - name: spring-app-configmap
+      reload:
+        enabled: true
+        mode: event
+  profiles:
+    active: local
