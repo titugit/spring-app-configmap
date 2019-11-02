@@ -3,10 +3,11 @@ pipeline{
     stages{
         stage('Build and Test Application') {
             agent{
-                steps{
-                    sh 'chmod +x mvnw'
-                    sh './mvnw clean install'
-                }
+                label 'docker'
+            }
+            steps{
+                sh 'chmod +x mvnw'
+                sh './mvnw clean install'
             }
         }
     }
