@@ -1,4 +1,9 @@
 pipeline{
+    environment {
+     registry = "biswabhusan/spring-app-configmap"
+     registryCredential = 'dockerhub'
+     dockerImage = ''
+    }
     agent any
     stages{
         stage('Build and Test Application') {
@@ -12,10 +17,21 @@ pipeline{
                 echo 'Sonar analysis need to be added'
             }
         }
-        stage('Docker Build and push step') {
-            steps{
-                sh 'docker build . -t tgit/configtest'
-            }
+       stage('Building Docker image') {
+      steps{
+        script {
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
+      }
+    }
+    stage('Push Docker Image') {
+      steps{
+         script {
+            docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
     }
 }
